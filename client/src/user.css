@@ -1,0 +1,61 @@
+.top-icon {
+  color: rgba(75, 75, 75, 0.9) !important;
+}
+body {
+  margin-bottom: 50px !important;
+}
+.container {
+  max-width: 1250px;
+}
+.right-side {
+  width: 600px;
+  margin-top: 55px;
+  margin-left: 10px;
+}
+a:hover {
+  text-decoration: none !important;
+}
+a.kinda-link {
+  color: #6c757d;
+}
+a.kinda-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+  color: #6c757d;
+}
+h6 {
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+}
+.listing {
+  width: 550px !important;
+}
+#render-list {
+  border: 0 !important;
+  color: #495057 !important;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #ffc107 !important;
+  background-color: #ffc107 !important;
+}
+/* footer */
+.news-icon i {
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+}
+.trash-can {
+  color: #495057;
+}
+.cancel-btn {
+  color: #ffc107;
+}
+.trash-can-2 {
+  color: #495057;
+}
+.badge {
+  cursor: pointer;
+  width: 95px !important;
+}
