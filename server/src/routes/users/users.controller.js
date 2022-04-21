@@ -76,7 +76,7 @@ async function httpPostLoginUser(req, res){
 
 function httpGetLogoutUser(req, res){
   res.clearCookie('nToken');
-  return res.status(204);
+  return res.redirect('/');
 }
 //TODO: remember to remove the console.log
 
