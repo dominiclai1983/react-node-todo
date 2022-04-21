@@ -1,9 +1,11 @@
 const express = require('express');
 
-const { httpPostNewUser } = require('./users.controller');
+const { 
+  httpPostNewUser, 
+} = require('./users.controller');
 
-const userRouter = express.Router();
+const usersRouter = express.Router();
 
-userRouter.post('/', httpPostNewUser);
+usersRouter.post('/', httpPostNewUser);
 
-module.exports = userRouter;
+module.exports = usersRouter;

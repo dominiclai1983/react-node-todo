@@ -1,12 +1,15 @@
 const path = require('path');
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const morgan = require('morgan');
 const cors = require('cors');
+const auth = require('../src/services/auth');
 
 const api = require('./routes/api');
 
 const app = express();
 
+app.use(cookieParser());
 app.use(morgan('combined'));
 //middleware for server logging
 app.use(cors({
@@ -18,6 +21,9 @@ app.use(express.json());
 app.use('/api', api);
 
 app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+app.get('/welcome', auth, (req, res) => {
   res.send('Hello World!')
 })
 

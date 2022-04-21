@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Layout from './component/layout'
 import { safeCredentials, handleErrors } from './utils/fetchHelper';
-
+//TODO: re-write in axios for fetch 
 function Signup(){
 
   const [username, setUsername] = useState("");
