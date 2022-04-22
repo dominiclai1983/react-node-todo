@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './component/layout';
 import NavBar from './component/navbar';
+import TodoBanner from './component/todobanner';
 import AccountLayout from './accountLayout';
 import User from './user';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -18,13 +19,14 @@ const Index = () => {
   return (
     <>
       <NavBar />
-      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i className="fas fa-list"></i></span>{"    <ToDo ... ... ... />"}</h1>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<AccountLayout />} >
+          <Route path="/" element={<TodoBanner />} >
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route path="/user" element={<AccountLayout />} >
             <Route index element={<User />} />
           </Route>
         </Routes>
@@ -47,7 +49,7 @@ export const Home = () => (
   </Layout>
 )
 
-export default Index;
+export default Home;
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

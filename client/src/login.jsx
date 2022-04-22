@@ -1,37 +1,47 @@
+import axios from 'axios';
 import React, {useState} from 'react'
 import Layout from './component/layout'
-import { safeCredentials, handleErrors } from './utils/fetchHelper';
+import {useNavigate} from 'react-router-dom'
 
 function Login(){
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const login = {
-    username,
-    password
-  }
+  const history = useNavigate();
+  
+  const API_URL = 'http://localhost:8000/api'
 
-  const handleLogin = (login) => {
+  const handleLogin = (event) => {
 
-    fetch('api/sessions', safeCredentials({
-      method: 'POST',
-      body: JSON.stringify({
-        user: login
-      })
-    }))
-    .then(handleErrors)
-    .then(res => {
-      console.log(res);
-    })
+    event.preventDefault();
 
+    const login = {
+      username,
+      password
+    }
+
+    axios.post('http://localhost:8000/api/login', login)
+      .then(res => {
+        console.log(res.data)
+        if(res.data){
+          console.log('do something');
+          console.log(res.data);
+          const token = JSON.stringify(res.data.data);
+          const realToken = token.substring(1,token.length-1);
+          localStorage.setItem('Token', realToken);
+          document.location.href="/user";
+        }
+      ;})
+      .catch(error => console.error(error));
+    
   }
 
   return (
     <>
       <Layout>
         <h4 className='text-secondary'>Login To Your Account</h4>
-          <form onSubmit={() => {handleLogin(login)}}>
+          <form onSubmit={handleLogin}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail">Username</label>
               <input type="text" className="form-control" id="exampleUsername" placeholder="username" 

@@ -17,14 +17,11 @@ app.use(cors({
 }));
 app.use(express.json());
 //it parse the incoming request to JSON
-//app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(express.static(path.join(__dirname, '..', '..','client', 'public', 'index.html')));
 app.use('/api', api);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-app.get('/welcome', auth, (req, res) => {
-  res.send('Hello World!')
+app.get('/wellcome', auth, (req, res) => {
+  return res.status(200).send(`${req.username} & ${req.userID}`);
 })
 
 module.exports = app;

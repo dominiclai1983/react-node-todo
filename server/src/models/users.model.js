@@ -41,7 +41,10 @@ async function postNewUser(user){
   const newUser = await User.create(finalUser);
   
   const token = jwt.sign(
-    { foo: 'bar' },
+    { 
+      username: newUser.username,
+      userID: newUser.userID
+    },
     process.env.TOKEN_KEY,
     { expiresIn: "2h",}
   );
@@ -60,7 +63,10 @@ async function postLoginUser(username, password){
 
     if (user && (await bcrypt.compare(password, user.password))){
       const token = jwt.sign(
-        { foo: 'bar' },
+        { 
+          username: user.username,
+          userID: user.userID
+        },
         process.env.TOKEN_KEY,
         { expiresIn: "2h",}
       );

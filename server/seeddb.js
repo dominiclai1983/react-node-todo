@@ -3,7 +3,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Todo = require('./src/models/todos/todos.mongo')
+const path = require('path');
+const Todo = require(path.join(__dirname, '.', 'src', 'models', 'todos.mongo'));
 
 const MONGO_URL = 'mongodb+srv://dominic-todo-admin:7MDeadxUDaM6zNQz@todos.ez2wr.mongodb.net/todos?retryWrites=true&w=majority'
 
@@ -18,19 +19,35 @@ mongoose.connect(MONGO_URL)
 const seedProducts = [
   {
     item: 'JS is super star!',
-    user_id: 1000
+    user_id: 1001
   },
   {
     item: 'JS is my mate!',
-    user_id: 1000
+    user_id: 1001
   },
   {
     item: 'JS is my king!',
-    user_id: 1000
+    user_id: 1001
   },
   {
     item: 'JS is my friend!',
-    user_id: 1000
+    user_id: 1001
+  },
+  {
+    item: 'JS is super star!',
+    user_id: 1002
+  },
+  {
+    item: 'JS is my mate!',
+    user_id: 1002
+  },
+  {
+    item: 'JS is my king!',
+    user_id: 1002
+  },
+  {
+    item: 'JS is my friend!',
+    user_id: 1002
   },
 ]
 

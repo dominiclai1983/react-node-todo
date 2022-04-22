@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const InlineEdit = (props) => {
 
@@ -34,7 +36,7 @@ const InlineEdit = (props) => {
               if(event.target.value === ''){
                 setItem(todo.item);
               }else{
-                onUpdate(todo.id, event.target.value);
+                onUpdate(todo._id, event.target.value);
               }}
             }//when blur, then it would fire an update 
           onKeyDown={handleSubmitByEnter}
@@ -44,23 +46,23 @@ const InlineEdit = (props) => {
       <Form>
         <Form.Check 
           type="switch"
-          id={`custom-switch-${todo.id}`}
+          id={`custom-switch-${todo._id}`}
           label=" "
           checked={completed}
           onChange={event => {
             setCompleted(!completed);
             onSwitchButton(username, event.target.checked, mode);
-            onMarkCompleted(todo.id, event.target.checked);
+            onMarkCompleted(todo._id, event.target.checked);
           }}
           className="mx-2"
         />
       </Form>
       {/*Trash Button*/}
       <div onClick={() => {
-        onDelete(todo.id);
+        onDelete(todo._id);
         onGetAllTodo(username);
         }}>
-        <span className="trash-can"><i className="fas fa-trash-alt"></i></span>
+        <FontAwesomeIcon icon={faTrashCan}/>
       </div>
 
     </div>

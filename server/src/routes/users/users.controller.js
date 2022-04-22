@@ -7,15 +7,14 @@ const bcrypt = require("bcryptjs");
 var cookieParser = require('cookie-parser');
 //TODO: remember to remove the console.log
 
+const FRONT_URL = 'http://localhost:3000'
+
 async function httpPostNewUser(req, res){
 
   try{
     console.log(req.body);
 
     const {email, password, username} = req.body;
-    console.log(username);
-    console.log(email);
-
 
     if(!(email && password && username)){
       res.status(400).json({
@@ -46,7 +45,12 @@ async function httpPostNewUser(req, res){
 
     res.cookie('nToken', newUser.token, { maxAge: 900000, httpOnly: true });
 
-    return res.status(201).json(finalUser);
+    return res.status(201).send({
+      username: newUser.username,
+      email: newUser.email,
+      token: newUser.token
+    });
+    //return res.redirect(201, FRONT_URL)
   }
   catch (err){
     console.log(err);
@@ -55,6 +59,7 @@ async function httpPostNewUser(req, res){
 
 async function httpPostLoginUser(req, res){
 
+  console.log(req.body);
   const {username, password} = req.body;
 
   if(!(username && password)){
@@ -66,9 +71,7 @@ async function httpPostLoginUser(req, res){
   const user = await postLoginUser(username, stringPassword);
 
   if(user){
-    res.cookie('nToken', user.token, { maxAge: 900000, httpOnly: true });
-    console.log(`the cookie is : ${res.cookie}`)
-    return res.status(200).json(user);
+    return res.json({status: 'ok', data: user.token});
   }else{
     return res.status(400).json({error: "Invalid Credentials"});
   }

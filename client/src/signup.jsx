@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import Layout from './component/layout'
-import { safeCredentials, handleErrors } from './utils/fetchHelper';
+import axios from 'axios';
 //TODO: re-write in axios for fetch 
+
 function Signup(){
 
   const [username, setUsername] = useState("");
@@ -17,28 +18,23 @@ function Signup(){
       email,
       password
     }
-    
-      fetch('api/users', safeCredentials({
-        method: 'POST',
-        body: JSON.stringify({
-          user: newUser
-        })
-      }))
-      .then(handleErrors)
+
+    const API_URL = 'http://localhost:8000/api'
+
+    axios.post(`${API_URL}/users`, newUser)
       .then(res => {
-        if(res.error){
-            let errors = {};
-            if(res.error === "*Username already exists"){
-              errors['username'] = res.error
-            }else{
-              errors['email'] = res.error
-            }
-            setErrors(errors);
-          }
-        })
+        console.log(res);
+        if(res.data){
+          console.log(res.data)
+          //document.location.href="/login";
+          window.location = '/user'
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
 
-
-  };
   
 
   return (
