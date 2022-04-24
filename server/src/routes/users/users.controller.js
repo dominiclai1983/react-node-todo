@@ -7,13 +7,9 @@ const bcrypt = require("bcryptjs");
 var cookieParser = require('cookie-parser');
 //TODO: remember to remove the console.log
 
-const FRONT_URL = 'http://localhost:3000'
-
 async function httpPostNewUser(req, res){
 
   try{
-    console.log(req.body);
-
     const {email, password, username} = req.body;
 
     if(!(email && password && username)){
@@ -33,7 +29,6 @@ async function httpPostNewUser(req, res){
     const stringPassword = String(password);
 
     encryptedPassword = await bcrypt.hash(stringPassword, 10);
-    console.log(encryptedPassword);
 
     const finalUser = {
       username: username,
@@ -59,7 +54,6 @@ async function httpPostNewUser(req, res){
 
 async function httpPostLoginUser(req, res){
 
-  console.log(req.body);
   const {username, password} = req.body;
 
   if(!(username && password)){
@@ -81,7 +75,6 @@ function httpGetLogoutUser(req, res){
   res.clearCookie('nToken');
   return res.redirect('/');
 }
-//TODO: remember to remove the console.log
 
 module.exports = {
   httpPostNewUser,

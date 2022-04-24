@@ -33,9 +33,7 @@ async function getLatestUserID(){
 async function postNewUser(user){
 
   const newUserID = await getLatestUserID() + 1;
-
   const actualID = {userID : newUserID}
-
   const finalUser = Object.assign(actualID, user);
 
   const newUser = await User.create(finalUser);
@@ -49,8 +47,6 @@ async function postNewUser(user){
     { expiresIn: "2h",}
   );
 
-  console.log(token);
-
   newUser.token = token;
 
   return newUser;
@@ -59,22 +55,22 @@ async function postNewUser(user){
 
 async function postLoginUser(username, password){
     
-    const user = await User.findOne({username});
+  const user = await User.findOne({username});
 
-    if (user && (await bcrypt.compare(password, user.password))){
-      const token = jwt.sign(
-        { 
-          username: user.username,
-          userID: user.userID
-        },
-        process.env.TOKEN_KEY,
-        { expiresIn: "2h",}
-      );
-      console.log(`token: ${token}`);
-        user.token = token;
+  if (user && (await bcrypt.compare(password, user.password))){
+    const token = jwt.sign(
+      { 
+        username: user.username,
+        userID: user.userID
+      },
+      process.env.TOKEN_KEY,
+      { expiresIn: "2h",}
+    );
+    console.log(`token: ${token}`);
+      user.token = token;
 
-    }
-    return user;
+  }
+  return user;
 }
 
 module.exports = {

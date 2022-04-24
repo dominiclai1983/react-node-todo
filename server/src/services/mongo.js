@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const path = require('path')
 
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
-//checkout the path.join() method for node.js
-
-//const MONGO_URL = 'mongodb+srv://dominic-todo-admin:7MDeadxUDaM6zNQz@todos.ez2wr.mongodb.net/todos?retryWrites=true&w=majority'
 
 const MONGO_URL = process.env.MONGO_URL;
 

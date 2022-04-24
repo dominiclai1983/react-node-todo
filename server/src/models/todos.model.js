@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 const Todo = require('./todos.mongo');
 //this one is the database
 
@@ -16,7 +14,6 @@ async function putUserTodo(taskID, item){
       item,
       {new: true}
     )
-    
 }
 
 async function getAllTodos(userID){
@@ -57,8 +54,6 @@ async function putUserTodos(taskID, completed){
       completed,
       {new: true}
     )
-
-  //TODO: updategrade to findOnebyid and adding params completed
 }
 
 async function getCompletedTodos(taskID){

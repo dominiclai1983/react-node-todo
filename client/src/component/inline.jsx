@@ -7,7 +7,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const InlineEdit = (props) => {
 
-  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete, onSwitchButton, mode} = props;
+  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete} = props;
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);

@@ -25,7 +25,6 @@ function Login(){
       .then(res => {
         console.log(res.data)
         if(res.data){
-          console.log('do something');
           console.log(res.data);
           const token = JSON.stringify(res.data.data);
           const realToken = token.substring(1,token.length-1);
