@@ -3,7 +3,10 @@ const {
   httpGetUserActiveTodos,
   httpGetUserCompletedTodos,
   httpGetAllTodos,
-  httpPutUserTodos
+  httpPutUserTodos,
+  httpGetCompletedTodos,
+  httpPostNewTodo,
+  httpPutUserTodo
 } = require('./todos.controller');
 const path = require('path');
 const auth = require(path.join(__dirname, '..', '..', '..', 'src', 'services', 'auth'));
@@ -11,9 +14,12 @@ const auth = require(path.join(__dirname, '..', '..', '..', 'src', 'services', '
 const todosRouter = express.Router();
 
 todosRouter.get('/', auth, httpGetAllTodos);
+todosRouter.post('/', auth, httpPostNewTodo);
+todosRouter.put('/', auth, httpPutUserTodo);
 todosRouter.get('/active', auth, httpGetUserActiveTodos);
 todosRouter.get('/completed', auth, httpGetUserCompletedTodos);
-todosRouter.put('/:id/completed', auth, httpPutUserTodos);
-todosRouter.put('/:id/active', auth, httpPutUserTodos);
+todosRouter.put('/:id', auth, httpPutUserTodos);
+todosRouter.get('/:id/deleted', auth, httpGetCompletedTodos);
+
 
 module.exports = todosRouter;

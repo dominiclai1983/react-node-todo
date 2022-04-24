@@ -5,10 +5,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { Outlet } from "react-router-dom";
+import axios from 'axios';
 
 import './user.css';
 
 const AccountLayout = () => {
+
   return (
     <>
       <Container>
@@ -18,7 +20,6 @@ const AccountLayout = () => {
             <LeftNav />
           </Col>
           <Col xs={10} md={9}> {/* marker A*/}
-          <Input/>
            <Outlet />
           </Col>
         </Row>

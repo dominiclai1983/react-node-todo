@@ -1,13 +1,8 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom';
-import LeftNav from './component/leftbar';
-import Input from './user/input';
-import NavBar from './component/navbar';
 import InlineEdit from './component/inline';
 import AddToDo from './component/addtodo';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
+import Input from './user/input';
 import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchHelper';
 import axios from 'axios';
 
@@ -30,15 +25,15 @@ class User extends Component{
 
     this.callAllTodo = this.callAllTodo.bind(this);
     this.callActiveTodo = this.callActiveTodo.bind(this);
+    this.handleTodoStatus = this.handleTodoStatus.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
         /*
     this.callCompletedTodo = this.callCompletedTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
-    this.handleTodoStatus = this.handleTodoStatus.bind(this);
+
+
     */
   }
-
-
 
   componentDidMount(){
     this.callAllTodo();
@@ -111,37 +106,33 @@ class User extends Component{
 
   }
 */
-  updateTodo = (id, msg) => {
+  updateTodo = (id, item) => {
 
-    if(!id){
+    if(!item){
       return;
     }
 
-    fetch(`api/tasks/${id}/update`, safeCredentials({
-      method: 'PUT',
-      body: JSON.stringify({
-        item: msg
-      })
-    }))
-    .then(handleErrors)
-    .then(res => {
-      console.log(res);
+    axios.put(`${API_URL}/tasks/${id}`,{item: item},
+    {
+      headers: {
+        "x-access-token": token,
+      }
     })
+      .then(res=>{
+        console.log(res);
+      })
   }
 
   deleteTodo = (id) => {
-    if(!id){
-      return;
-    }
 
-    fetch(`api/tasks/${id}`, safeCredentials({
-      method: 'DELETE',
-    }))
-    .then(handleErrors)
-    .then(res => {
-      console.log(res);
+    axios.get(`${API_URL}/tasks/${id}/deleted`, {
+      headers: {
+        "x-access-token": token,
+      }
     })
-
+      .then(res => {
+        console.log(res)
+      })
   }
 
   handleRenderBySwitchButton = (username, completed, mode) => {
@@ -160,23 +151,16 @@ class User extends Component{
 
   handleTodoStatus = (id, completed) => {
 
-    if(completed){
-      fetch(`api/tasks/${id}/completed`, safeCredentials({
-        method: 'PUT'
-      }))
-      .then(handleErrors)
-      .then(res => {
-        console.log(res);
-      })
-    }else {
-      fetch(`api/tasks/${id}/active`, safeCredentials({
-        method: 'PUT'
-      }))
-      .then(handleErrors)
-      .then(res => {
-        console.log(res);
-      })
+    axios.put(`${API_URL}/tasks/${id}`, {completed: completed}, 
+    {
+      headers: {
+        "x-access-token": token,
       }
+    })
+      .then(res => {
+        console.log(res);
+      })
+
   }
   
 
@@ -186,6 +170,7 @@ class User extends Component{
    
     return (
       <>
+          <Input onGetAllTodo={this.callAllTodo} API_URL={API_URL} token={token} />
           <Col xs={12} className="border-bottom mt-1 mb-1 pb-2 text-secondary">
           
             <span className={`badge badge-pill ${(mode === 'all')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callAllTodo()}} >All</span>{" "}|{" "}

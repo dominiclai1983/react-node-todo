@@ -7,7 +7,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const InlineEdit = (props) => {
 
-  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete, onSwitchButton, username, mode} = props;
+  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete, onSwitchButton, mode} = props;
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);
@@ -50,24 +50,27 @@ const InlineEdit = (props) => {
           label=" "
           checked={completed}
           onChange={event => {
+            console.log(event.target.checked)
             setCompleted(!completed);
-            onSwitchButton(username, event.target.checked, mode);
+            //onSwitchButton(username, event.target.checked, mode);
             onMarkCompleted(todo._id, event.target.checked);
           }}
           className="mx-2"
         />
       </Form>
       {/*Trash Button*/}
-      <div onClick={() => {
-        onDelete(todo._id);
-        onGetAllTodo(username);
-        }}>
+      <div onClick={() =>{
+          onDelete(todo._id)
+          //onGetAllTodo(username);
+          console.log(todo._id);
+          onGetAllTodo();
+      }}>
         <FontAwesomeIcon icon={faTrashCan}/>
       </div>
 
     </div>
 
-  );
+  )
         
 };
 
