@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React, {useState} from 'react'
 import Layout from './component/layout'
-import {useNavigate} from 'react-router-dom'
 
 function Login(){
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const history = useNavigate();
   
   const API_URL = process.env.REACT_APP_API_URL;
 

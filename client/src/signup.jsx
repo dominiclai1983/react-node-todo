@@ -8,7 +8,6 @@ function Signup(){
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState({});
 
   const newUser = {
     username,
@@ -55,7 +54,6 @@ function Signup(){
             onChange = {event => {
               event.preventDefault();
               setUsername(event.target.value)}} />
-            <small>{errors.hasOwnProperty('username')? errors.username : null}</small>
           </div>
 
           <div className="form-group">
@@ -64,7 +62,6 @@ function Signup(){
               onChange = {event => {
                 event.preventDefault();
                 setEmail(event.target.value)}} />
-            <small>{errors.hasOwnProperty('email')? errors.email : null}</small>
           </div>
 
           <div className="form-group">
@@ -72,7 +69,6 @@ function Signup(){
               <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange = {event => {
                 event.preventDefault(); 
                 setPassword(event.target.value)}} />
-            <small>{errors.hasOwnProperty('password')? errors.password : "At latest EIGHT characters"}</small>
           </div>
 
         <button type="submit" className="btn btn-warning" >Submit</button>
