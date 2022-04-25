@@ -43,7 +43,7 @@ class User extends Component{
   //supporting method to load all todo
   callAllTodo = () => {
 
-    axios.get(`${API_URL}/tasks`, {
+    axios.get(`${API_URL}/api/tasks`, {
       headers: {
         "x-access-token": token,
       }
@@ -61,7 +61,7 @@ class User extends Component{
   //supporting method to load active todo
   callActiveTodo = () => {
 
-    axios.get(`${API_URL}/tasks/active`, {
+    axios.get(`${API_URL}/api/tasks/active`, {
       headers: {
         "x-access-token": token,
       }
@@ -78,7 +78,7 @@ class User extends Component{
   //supporting method to load completed todo
   callCompletedTodo = () => {
 
-    axios.get(`${API_URL}/tasks/completed`, {
+    axios.get(`${API_URL}/api/tasks/completed`, {
       headers: {
         "x-access-token": token,
       }
@@ -112,7 +112,7 @@ class User extends Component{
 
   deleteTodo = (id) => {
 
-    axios.get(`${API_URL}/tasks/${id}/deleted`, {
+    axios.get(`${API_URL}/api/tasks/${id}/deleted`, {
       headers: {
         "x-access-token": token,
       }
@@ -139,7 +139,7 @@ class User extends Component{
 
   handleTodoStatus = (id, completed) => {
 
-    axios.put(`${API_URL}/tasks/${id}`, {completed: completed}, 
+    axios.put(`${API_URL}/api/tasks/${id}`, {completed: completed}, 
     {
       headers: {
         "x-access-token": token,

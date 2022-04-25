@@ -19,7 +19,7 @@ function Login(){
       password
     }
 
-    axios.post(`${API_URL}/login`, login)
+    axios.post(`${API_URL}/api/login`, login)
       .then(res => {
         console.log(res.data)
         if(res.data){

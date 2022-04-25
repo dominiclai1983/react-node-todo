@@ -10,7 +10,7 @@ const Input = (props) =>{
   
   const handleSubmit = () => {
 
-    axios.post(`${API_URL}/tasks`, {item: item}, {
+    axios.post(`${API_URL}/api/tasks`, {item: item}, {
       headers: {
         "x-access-token": token,
       }
