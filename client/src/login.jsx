@@ -29,7 +29,7 @@ function Login(){
           const token = JSON.stringify(res.data.data);
           const realToken = token.substring(1,token.length-1);
           localStorage.setItem('Token', realToken);
-          document.location.href="/user";
+          window.location.href="/user";
         }
       ;})
       .catch(error => console.error(error));
