@@ -10,7 +10,7 @@ function Login(){
 
   const history = useNavigate();
   
-  const API_URL = 'http://localhost:8000/api'
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleLogin = (event) => {
 
@@ -21,7 +21,7 @@ function Login(){
       password
     }
 
-    axios.post('http://localhost:8000/api/login', login)
+    axios.post(`${API_URL}/login`, login)
       .then(res => {
         console.log(res.data)
         if(res.data){

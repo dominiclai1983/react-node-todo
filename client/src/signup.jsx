@@ -10,24 +10,31 @@ function Signup(){
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
 
+  const newUser = {
+    username,
+    email,
+    password
+  }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
 
-    const newUser = {
-      username,
-      email,
-      password
-    }
+    event.preventDefault();
 
-    const API_URL = 'http://localhost:8000/api'
+    console.log(newUser);
 
-    axios.post(`${API_URL}/users`, newUser)
+    const API_URL = process.env.REACT_APP_API_URL;
+    console.log()
+
+    axios.post(`${API_URL}/users`, {
+      username: username,
+      email: email,
+      password: password
+    })
       .then(res => {
         console.log(res);
         if(res.data){
           console.log(res.data)
-          //document.location.href="/login";
-          window.location = '/user'
+          document.location.href="/login";
         }
       })
       .catch(err => {

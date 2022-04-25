@@ -9,13 +9,16 @@ var cookieParser = require('cookie-parser');
 
 async function httpPostNewUser(req, res){
 
+  console.log(req.body);
+
   try{
     const {email, password, username} = req.body;
 
     if(!(email && password && username)){
-      res.status(400).json({
+      return res.status(400).json({
         error: 'Missing required field'
       })
+      
     }
 
     const existUser = await findExistUser(email);
@@ -37,8 +40,6 @@ async function httpPostNewUser(req, res){
     }
 
     const newUser = await postNewUser(finalUser);
-
-    res.cookie('nToken', newUser.token, { maxAge: 900000, httpOnly: true });
 
     return res.status(201).send({
       username: newUser.username,

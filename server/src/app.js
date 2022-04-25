@@ -7,13 +7,15 @@ const auth = require('../src/services/auth');
 
 const api = require('./routes/api');
 
+require('dotenv').config();
+
 const app = express();
 
 app.use(cookieParser());
 app.use(morgan('combined'));
 //middleware for server logging
 app.use(cors({
-  origin: 'http://localhost:3000',
+  //origin: 'http://localhost:3000',
 }));
 app.use(express.json());
 //it parse the incoming request to JSON
