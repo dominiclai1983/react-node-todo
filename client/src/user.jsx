@@ -7,7 +7,9 @@ import axios from 'axios';
 
 import './user.css';
 
-const API_URL = 'http://localhost:8000/api';
+//const API_URL = 'https://dominiclai1983-node-todo.herokuapp.com/api';
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const token = localStorage.getItem('Token'); 
 
@@ -18,7 +20,8 @@ class User extends Component{
     this.state ={
       todos: [],
       authenticated: false,
-      mode: ""
+      mode: "",
+      loading: true
     }
 
     this.callAllTodo = this.callAllTodo.bind(this);
@@ -89,21 +92,7 @@ class User extends Component{
       .catch(error => console.error(error));
 
   }
-  /*
-  handLogOut = () => {
 
-    fetch('api/sessions', safeCredentials({
-      method: 'DELETE'
-    }))
-    .then(handleErrors)
-    .then(data =>{
-      if(data.success){
-        document.location.href="/";
-      }
-    })
-
-  }
-*/
   updateTodo = (id, item) => {
 
     if(!item){
