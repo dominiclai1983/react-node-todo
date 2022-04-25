@@ -99,7 +99,7 @@ class User extends Component{
       return;
     }
 
-    axios.put(`${API_URL}/tasks/${id}`,{item: item},
+    axios.put(`${API_URL}/api/tasks/${id}`,{item: item},
     {
       headers: {
         "x-access-token": token,
