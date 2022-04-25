@@ -3,9 +3,7 @@ import InlineEdit from './component/inline';
 import AddToDo from './component/addtodo';
 import Col from 'react-bootstrap/Col';
 import Input from './user/input';
-import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchHelper';
 import axios from 'axios';
-
 
 import './user.css';
 
@@ -131,7 +129,8 @@ class User extends Component{
       }
     })
       .then(res => {
-        console.log(res)
+        console.log(res);
+        this.callAllTodo();
       })
   }
 
@@ -179,7 +178,7 @@ class User extends Component{
           </Col>
           <Col xs={12}>
           {todos.map(todo => {
-            return <InlineEdit key={todo._id} todo={todo} mode={mode} onDelete={this.deleteTodo} onUpdate={this.updateTodo} onGetAllTodo={this.callAllTodo} onMarkCompleted={this.handleTodoStatus} onSwitchButton={this.handleRenderBySwitchButton} />
+            return <InlineEdit key={todo._id} todo={todo} mode={mode} onUpdate={this.updateTodo} onDelete={this.deleteTodo} onMarkCompleted={this.handleTodoStatus} onSwitchButton={this.handleRenderBySwitchButton} />
           })}
           {(todos.length === 0 )? <AddToDo /> : null}
           </Col>

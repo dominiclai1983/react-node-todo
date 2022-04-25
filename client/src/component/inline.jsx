@@ -7,7 +7,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const InlineEdit = (props) => {
 
-  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete} = props;
+  const {todo, onUpdate, onMarkCompleted, onDelete} = props;
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);
@@ -60,10 +60,8 @@ const InlineEdit = (props) => {
       </Form>
       {/*Trash Button*/}
       <div onClick={() =>{
-          onDelete(todo._id)
+          onDelete(todo._id);
           //onGetAllTodo(username);
-          console.log(todo._id);
-          onGetAllTodo();
       }}>
         <FontAwesomeIcon icon={faTrashCan}/>
       </div>
