@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(morgan('combined'));
 //middleware for server logging
 app.use(cors({
-  //origin: 'http://localhost:3000',
+  origin: [process.env.TEST_URL, process.env.ORIGIN_URL],
 }));
 app.use(express.json());
 //it parse the incoming request to JSON
