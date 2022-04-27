@@ -14,6 +14,7 @@ async function startServer() {
 
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
+  console.log(`this is our check ${process.env.NODE_ENV}`)
 });
 
 startServer();
