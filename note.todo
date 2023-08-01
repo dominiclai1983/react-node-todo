@@ -1,0 +1,19 @@
+how to create mongo db by using mongoose
+
+1. create Schema  
+// const mongoose = require('mongoose');
+
+2. create model
+// import schema
+
+3. create controller
+// import model
+
+4. create route
+// import controller
+
+5. import all the route to one single file, maybe called api
+
+6. export api to app
+
+app.js is all the place for all the middlewares 

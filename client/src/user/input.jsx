@@ -19,8 +19,9 @@ const Input = (props) =>{
       console.log(res);
       console.log(res.data);
       setItem('');
-      onGetAllTodo();
+
     })
+    this.onGetAllTodo();
 
   }
 
@@ -50,11 +51,7 @@ const Input = (props) =>{
           }}
           onKeyDown={handleSubmitByEnter}
         />
-        <Button variant="warning" id="button-addon" onClick={() => {
-            handleSubmit();
-            console.log(item);
-            onGetAllTodo()}
-          }>
+        <Button variant="warning" id="button-addon" onClick={handleSubmit}>
           Add Task
         </Button>
       </InputGroup>
