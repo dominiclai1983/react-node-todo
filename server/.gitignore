@@ -22,6 +22,9 @@
 .env.production.local
 /*.env
 
+./src/seeddb.js
+./src/seeddb2.js
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -6,7 +6,7 @@ const app = require("../app");
 require("dotenv").config();
 
 beforeEach(async () => {
-  await mongoose.connect(process.env.MONGODB_URI);
+  await mongoose.connect(process.env.MONGO_URL);
 });
 afterEach(async () => {
   await mongoose.connection.close();

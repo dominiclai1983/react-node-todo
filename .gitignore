@@ -21,7 +21,6 @@
 .env.test.local
 .env.production.local
 .env
-.seeddb.js
 
 npm-debug.log*
 yarn-debug.log*

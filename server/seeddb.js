@@ -1,7 +1,5 @@
 //a db seeding file only
-
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const Todo = require(path.join(__dirname, ".", "src", "models", "todos.mongo"));
