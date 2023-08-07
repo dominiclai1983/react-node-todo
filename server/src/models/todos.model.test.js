@@ -60,6 +60,7 @@ describe("todo service", () => {
       );
       const results = await getAllTodos();
       expect(results[0].item).toBe("Kiss my ass");
+      expect(results[1].item).toBe("Kiss my ass again");
     });
   });
 });

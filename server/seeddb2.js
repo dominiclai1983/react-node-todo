@@ -1,11 +1,10 @@
-const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const User = require(path.join(__dirname, ".", "src", "models", "users.mongo"));
+const bcrypt = require("bcryptjs");
+const { postNewUser } = require("./src/models/users.model");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-require("dotenv").config();
-
-const MONGO_URL = "";
+const MONGO_URL = process.env.MONGO_URL;
 
 mongoose
   .connect(MONGO_URL)
@@ -30,8 +29,24 @@ const seedUser = [
 ];
 
 const seedDB = async () => {
-  await User.deleteMany({});
-  await User.insertMany(seedUser);
+  try {
+    for (const user of seedUser) {
+      const stringPassword = String(user.password);
+      const encryptedPassword = await bcrypt.hash(stringPassword, 10);
+
+      const finalUser = {
+        username: user.username,
+        email: user.email,
+        password: encryptedPassword,
+      };
+
+      await postNewUser(finalUser);
+
+      console.log(`User "${user.username}" has been seeded successfully.`);
+    }
+  } catch (e) {
+    console.error("Error seeding users:", e);
+  }
 };
 
 seedDB().then(() => {
