@@ -3,6 +3,8 @@ const verifyToken = require("./auth");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
+jest.mock("jsonwebtoken");
+
 describe("verifyToken()", () => {
   test("should call next middleware when token is valid", () => {
     const req = {
@@ -16,6 +18,8 @@ describe("verifyToken()", () => {
         token: "valid-token",
       },
     };
+    const token =
+      req.body.token || req.query.token || req.headers["x-access-token"];
     const res = {};
     const next = jest.fn();
 
@@ -25,17 +29,14 @@ describe("verifyToken()", () => {
 
     verifyToken(req, res, next);
 
-    expect(verify).toHaveBeenCalledWith(
-      req.headers["x-access-token"],
-      process.env.TOKEN_KEY
-    );
+    expect(verify).toHaveBeenCalledWith(token, process.env.TOKEN_KEY);
     expect(req.headers).toEqual({ "x-access-token": "valid-token" });
     expect(req.username).toEqual("test_user");
     expect(req.userID).toBe(123);
     expect(next).toHaveBeenCalledWith();
   });
 
-  test.only("the token is invalid", () => {
+  test("the token is invalid", () => {
     const req = {
       header: {
         "x-access-token": "invalid-token",
@@ -53,24 +54,25 @@ describe("verifyToken()", () => {
     };
     const next = jest.fn();
 
-    jest.spyOn(jwt, "verify").mockImplementation(() => {
+    jwt.verify.mockImplementationOnce(() => {
       throw new Error({ error: "Invalid Token" });
     });
+    /*jest.spyOn(jwt, 'verify).mockImplementationOnce(() => {
+      throw new Error("Invalid token");
+    });*/
 
     verifyToken(req, res, next);
-    console.log(`res ${res.json}`);
+
     expect(res.status).toHaveBeenCalledWith(401);
     expect(res.json).toHaveBeenCalledWith({ error: "Invalid Token" });
     expect(next).not.toHaveBeenCalledWith();
   });
-});
 
-/*
-  test("the token is invalid", () => {
+  test("the token is missing", () => {
     const req = {
-      headers: {
-        "x-access-token": "invalid-token",
-      },
+      headers: {},
+      query: {},
+      body: {},
     };
 
     const res = {
@@ -80,18 +82,11 @@ describe("verifyToken()", () => {
 
     const next = jest.fn();
 
-    jwt.verify.mockImplementationOnce(() => {
-      throw new Error("Invalid token");
-    });
-
     verifyToken(req, res, next);
 
-    expect(jwt.verify).toHaveBeenCallWith(
-      "invalid-token",
-      process.env.TOKEN_KEY
-    );
-    expect(res.status).toBe(401);
-    expect(res.json).toEqual("error: Invalid Token");
-    expect(next).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(res.json).toHaveBeenCalledWith({
+      error: "A token is required for authentication",
+    });
   });
-*/
+});
