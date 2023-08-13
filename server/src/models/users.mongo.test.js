@@ -1,11 +1,16 @@
-const { connectTestDB, dropDB } = require("../services/setuptestdb");
+const {
+  connectTestDB,
+  dropDB,
+  dropCollections,
+} = require("../services/testdb");
 const User = require("./users.mongo");
 
 beforeAll(async () => connectTestDB());
 afterAll(async () => dropDB());
+afterEach(async () => dropCollections());
 
 describe("todos.model", () => {
-  test("it should create a todo item successfully", async () => {
+  test("it should create a new user successfully", async () => {
     let newtestuser = {
       username: "someuser",
       email: "email@gmail.com",

@@ -1,7 +1,6 @@
 const http = require("http");
 const app = require("./app");
 const { mongoConnect } = require("./services/mongo");
-const { connectTestDB } = require("./services/setuptestdb");
 
 require("dotenv").config();
 
@@ -11,7 +10,6 @@ const server = http.createServer(app);
 
 async function startServer() {
   await mongoConnect();
-  //await connectTestDB();
 }
 
 server.listen(PORT, () => {

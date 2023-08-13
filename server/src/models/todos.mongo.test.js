@@ -1,8 +1,13 @@
-const { connectTestDB, dropDB } = require("../services/setuptestdb");
+const {
+  connectTestDB,
+  dropDB,
+  dropCollections,
+} = require("../services/testdb");
 const Todo = require("./todos.mongo");
 
 beforeAll(async () => connectTestDB());
 afterAll(async () => dropDB());
+afterEach(async () => dropCollections());
 
 describe("todos.model", () => {
   test("it should create a todo item successfully", async () => {

@@ -17,4 +17,14 @@ const dropDB = async () => {
   await mongoServer.stop();
 };
 
-module.exports = { connectTestDB, dropDB };
+const dropCollections = async () => {
+  if (mongoServer) {
+    const collections = mongoose.connection.db.collections;
+    for (const key in collections) {
+      const collection = collections[key];
+      await collection.deleteMany();
+    }
+  }
+};
+
+module.exports = { connectTestDB, dropDB, dropCollections };
