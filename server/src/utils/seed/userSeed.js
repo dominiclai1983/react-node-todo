@@ -21,14 +21,9 @@ const seedUser = [
     username: "test1",
     password: "123456",
   },
-  {
-    email: "anotheremail@gmail.com",
-    username: "test2",
-    password: "123456",
-  },
 ];
 
-const seedDB = async () => {
+const userSeed = async () => {
   try {
     for (const user of seedUser) {
       const stringPassword = String(user.password);
@@ -49,7 +44,7 @@ const seedDB = async () => {
   }
 };
 
-seedDB().then(() => {
+userSeed().then(() => {
   mongoose.connection.close();
   console.log(`seeding completed! DOM!`);
 });

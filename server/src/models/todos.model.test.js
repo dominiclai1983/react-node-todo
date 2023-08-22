@@ -83,7 +83,7 @@ describe("todos.model methods", () => {
     expect(result[0].deleted).toBe(false);
   });
 
-  test.only("should toddle the task complete status, putUserTodos()", async () => {
+  test("should toddle the task complete status, putUserTodos()", async () => {
     const todos = await Todo.find();
     const todosIdToFind = todos[0].id;
     const completed = todos[0].completed;

@@ -45,3 +45,9 @@ describe("post '../api/users' ", () => {
     expect(response.error.text).toEqual('{"error":"Missing required field"}');
   });
 });
+
+/*
+describe("post '../api/login' ", () => {
+  test("it should ")
+})
+*/

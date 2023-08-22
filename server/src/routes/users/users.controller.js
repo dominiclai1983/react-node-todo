@@ -1,32 +1,30 @@
-const { 
+const {
   postNewUser,
   postLoginUser,
-  findExistUser
- } = require('../../models/users.model');
+  findExistUser,
+} = require("../../models/users.model");
 const bcrypt = require("bcryptjs");
-var cookieParser = require('cookie-parser');
+var cookieParser = require("cookie-parser");
 //TODO: remember to remove the console.log
 
-async function httpPostNewUser(req, res){
-
+async function httpPostNewUser(req, res) {
   console.log(req.body);
 
-  try{
-    const {email, password, username} = req.body;
+  try {
+    const { email, password, username } = req.body;
 
-    if(!(email && password && username)){
+    if (!(email && password && username)) {
       return res.status(400).json({
-        error: 'Missing required field'
-      })
-      
+        error: "Missing required field",
+      });
     }
 
     const existUser = await findExistUser(email);
 
-    if(existUser){
+    if (existUser) {
       return res.status(404).json({
-        error: 'User Already Exist. Please Login'
-      })
+        error: "User Already Exist. Please Login",
+      });
     }
 
     const stringPassword = String(password);
@@ -36,49 +34,46 @@ async function httpPostNewUser(req, res){
     const finalUser = {
       username: username,
       email: email,
-      password: encryptedPassword
-    }
+      password: encryptedPassword,
+    };
 
     const newUser = await postNewUser(finalUser);
 
     return res.status(201).send({
       username: newUser.username,
       email: newUser.email,
-      token: newUser.token
+      token: newUser.token,
     });
-    //return res.redirect(201, FRONT_URL)
-  }
-  catch (err){
+  } catch (err) {
     console.log(err);
   }
 }
 
-async function httpPostLoginUser(req, res){
+async function httpPostLoginUser(req, res) {
+  const { username, password } = req.body;
 
-  const {username, password} = req.body;
-
-  if(!(username && password)){
-    return res.status(400).json({error: "All input is required"});
+  if (!(username && password)) {
+    return res.status(400).json({ error: "All input is required" });
   }
 
   const stringPassword = String(password);
 
   const user = await postLoginUser(username, stringPassword);
 
-  if(user){
-    return res.json({status: 'ok', data: user.token});
-  }else{
-    return res.status(400).json({error: "Invalid Credentials"});
+  if (user) {
+    return res.json({ status: "ok", data: user.token });
+  } else {
+    return res.status(400).json({ error: "Invalid Credentials" });
   }
 }
 
-function httpGetLogoutUser(req, res){
-  res.clearCookie('nToken');
-  return res.redirect('/');
+function httpGetLogoutUser(req, res) {
+  res.clearCookie("nToken");
+  return res.redirect("/");
 }
 
 module.exports = {
   httpPostNewUser,
   httpPostLoginUser,
-  httpGetLogoutUser
-}
+  httpGetLogoutUser,
+};
