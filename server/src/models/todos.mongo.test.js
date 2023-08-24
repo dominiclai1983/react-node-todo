@@ -6,8 +6,8 @@ const {
 const Todo = require("./todos.mongo");
 
 beforeAll(async () => connectTestDB());
-afterAll(async () => dropDB());
 afterEach(async () => dropCollections());
+afterAll(async () => dropDB());
 
 describe("todos.model", () => {
   test("it should create a todo item successfully", async () => {

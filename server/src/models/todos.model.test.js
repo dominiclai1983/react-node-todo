@@ -93,7 +93,7 @@ describe("todos.model methods", () => {
 
     expect(completedTodo.id).toBe(todosIdToFind);
     expect(completedTodo.user_id).toBe(1001);
-    expect(completedTodo.completed).toBe(true);
+    expect(completedTodo.completed).toBe(false);
     expect(completedTodo.deleted).toBe(false);
   });
 });

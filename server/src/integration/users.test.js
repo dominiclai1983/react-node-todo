@@ -46,8 +46,39 @@ describe("post '../api/users' ", () => {
   });
 });
 
-/*
-describe("post '../api/login' ", () => {
-  test("it should ")
-})
-*/
+describe("testing the login and logout", () => {
+  const newUser = {
+    username: "someuser",
+    email: "email@gmail.com",
+    password: "123456",
+  };
+  beforeEach(async () => {
+    await supertest(app).post("/api/users").send(newUser);
+  });
+
+  test("user should be able to login", async () => {
+    const login = {
+      username: "someuser",
+      password: "123456",
+    };
+
+    const response = await supertest(app)
+      .post("/api/login")
+      .send(login)
+      .expect("Content-Type", /json/);
+
+    expect(response.body.status).toBe("ok");
+    expect(response.body.data).toBeDefined();
+  });
+
+  /*
+  test("user should be able to logout", async () => {
+    const response = await supertest(app)
+      .get("api/logout")
+      .set('x-access-token', token);
+    
+    console.log(response);
+    //expect(response.status).toBe(302);
+  })
+  */
+});

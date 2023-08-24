@@ -31,7 +31,7 @@ describe("todo service", () => {
       "save"
     );
     const user_id = 1001,
-      item = "Kiss my ass now!";
+      item = "kiss your mon!";
 
     const result = await postNewTodo(user_id, item);
 

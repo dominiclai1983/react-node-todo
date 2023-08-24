@@ -4,11 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "jest --detectOpenHandles --coverage",
     "watch": "nodemon src/server.js"
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",

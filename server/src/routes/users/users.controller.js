@@ -8,8 +8,6 @@ var cookieParser = require("cookie-parser");
 //TODO: remember to remove the console.log
 
 async function httpPostNewUser(req, res) {
-  console.log(req.body);
-
   try {
     const { email, password, username } = req.body;
 
