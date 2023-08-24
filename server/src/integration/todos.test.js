@@ -32,8 +32,7 @@ beforeAll(async () => {
   await testTodo.save();
 });
 beforeEach(async () => {
-  const response = await supertest(app).post("/api/login").send(mock.login);
-  token = response.body.data;
+  token = (await supertest(app).post("/api/login").send(mock.login)).body.data;
 });
 //afterEach(async () => dropCollections());
 afterAll(async () => {
