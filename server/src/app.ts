@@ -1,12 +1,13 @@
-const path = require("path");
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const cors = require("cors");
+import path from "path";
+import express from "express";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import cors from "cors";
 
-const api = require("./routes/api");
+import api from "./routes/api";
 
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
@@ -32,4 +33,4 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/api", api);
 
-module.exports = app;
+export default app;

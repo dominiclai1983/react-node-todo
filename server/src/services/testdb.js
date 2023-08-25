@@ -27,4 +27,8 @@ const dropCollections = async () => {
   }
 };
 
-module.exports = { connectTestDB, dropDB, dropCollections };
+module.exports = {
+  connectTestDB,
+  dropDB,
+  dropCollections,
+};
