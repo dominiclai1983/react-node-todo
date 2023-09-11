@@ -10,9 +10,9 @@ usersRouter.post("/", httpPostNewUser);
 module.exports = usersRouter;
 */
 
-import express, { Router, Request, Response } from "express";
+import express, { Router } from "express";
 import { httpPostNewUser } from "./users.controller";
 
-export const usersRouter = express.Router();
+export const usersRouter: Router = express.Router();
 
 usersRouter.post("/", httpPostNewUser);
