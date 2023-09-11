@@ -1,14 +1,8 @@
 //const mongoose = require('mongoose');
 import mongoose from "mongoose";
+import { IApplicationTodo } from "../types/todoType";
 
-interface Todo extends mongoose.Document {
-  item: string;
-  completed: boolean;
-  deleted: boolean;
-  user_id: number;
-}
-
-const todosSchema = new mongoose.Schema<Todo>(
+const todosSchema = new mongoose.Schema<IApplicationTodo>(
   {
     item: {
       $type: String,
@@ -31,4 +25,4 @@ const todosSchema = new mongoose.Schema<Todo>(
 );
 
 //module.exports = mongoose.model("Todo", todosSchema);
-export default mongoose.model<Todo>("Todo", todosSchema);
+export default mongoose.model<IApplicationTodo>("Todo", todosSchema);

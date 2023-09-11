@@ -31,3 +31,6 @@ yarn-error.log*
 
 .todo
 .todos
+
+foo.ts
+fot.test.ts
