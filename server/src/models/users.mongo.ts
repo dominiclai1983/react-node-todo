@@ -1,15 +1,8 @@
 //const mongoose = require('mongoose');
-import * as mongoose from "mongoose";
+import mongoose from "mongoose";
+import { IApplicationUser } from "../types/userType";
 
-interface User {
-  username: string | null;
-  email: string;
-  password: string;
-  userID: number;
-  token: string;
-}
-
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema<IApplicationUser>({
   username: {
     type: String,
     default: null,
@@ -31,4 +24,4 @@ const userSchema = new mongoose.Schema<User>({
 
 //module.exports = mongoose.model("User", userSchema);
 
-export default mongoose.model<User>("User", userSchema);
+export default mongoose.model<IApplicationUser>("User", userSchema);

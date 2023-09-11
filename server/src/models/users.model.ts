@@ -1,18 +1,15 @@
-const User = require("./users.mongo");
-//this one is the database
-const path = require("path");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import User from "./users.mongo";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import type { NewUser, Filter } from "../types/userType";
 
 const DEFAULT_USER_ID = 999;
 
-require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
-
-async function findUser(filter) {
+async function findUser(filter: Filter) {
   return await User.findOne(filter);
 }
 
-async function findExistUser(email) {
+export async function findExistUser(email: string) {
   return await findUser({
     email: email,
   });
@@ -28,7 +25,7 @@ async function getLatestUserID() {
   return latestID.userID;
 }
 
-async function postNewUser(user) {
+export async function postNewUser(user: NewUser) {
   const newUserID = (await getLatestUserID()) + 1;
   const actualID = { userID: newUserID };
   const finalUser = Object.assign(actualID, user);
@@ -40,7 +37,7 @@ async function postNewUser(user) {
       username: newUser.username,
       userID: newUser.userID,
     },
-    process.env.TOKEN_KEY,
+    process.env.TOKEN_KEY as string,
     { expiresIn: "2h" }
   );
 
@@ -49,7 +46,7 @@ async function postNewUser(user) {
   return newUser;
 }
 
-async function postLoginUser(username, password) {
+export async function postLoginUser(username: string, password: string) {
   const user = await User.findOne({ username });
 
   if (user && (await bcrypt.compare(password, user.password))) {
@@ -58,16 +55,10 @@ async function postLoginUser(username, password) {
         username: user.username,
         userID: user.userID,
       },
-      process.env.TOKEN_KEY, //this one is jwt_secret
+      process.env.TOKEN_KEY as string, //this one is jwt_secret
       { expiresIn: "2h" }
     );
     user.token = token;
   }
   return user;
 }
-
-module.exports = {
-  findExistUser,
-  postNewUser,
-  postLoginUser,
-};

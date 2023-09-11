@@ -1,13 +1,12 @@
-const {
+import {
+  findExistUser,
   postNewUser,
   postLoginUser,
-  findExistUser,
-} = require("../../models/users.model");
-const bcrypt = require("bcryptjs");
-var cookieParser = require("cookie-parser");
-//TODO: remember to remove the console.log
+} from "../../models/users.model";
+import bcrypt from "bcryptjs";
+import { Request, Response } from "express";
 
-async function httpPostNewUser(req, res) {
+export async function httpPostNewUser(req: Request, res: Response) {
   try {
     const { email, password, username } = req.body;
 
@@ -27,7 +26,7 @@ async function httpPostNewUser(req, res) {
 
     const stringPassword = String(password);
 
-    encryptedPassword = await bcrypt.hash(stringPassword, 10);
+    const encryptedPassword = await bcrypt.hash(stringPassword, 10);
 
     const finalUser = {
       username: username,
@@ -47,7 +46,7 @@ async function httpPostNewUser(req, res) {
   }
 }
 
-async function httpPostLoginUser(req, res) {
+export async function httpPostLoginUser(req: Request, res: Response) {
   const { username, password } = req.body;
 
   if (!(username && password)) {
@@ -65,13 +64,7 @@ async function httpPostLoginUser(req, res) {
   }
 }
 
-function httpGetLogoutUser(req, res) {
+export function httpGetLogoutUser(req: Request, res: Response) {
   res.clearCookie("nToken");
   return res.redirect("/");
 }
-
-module.exports = {
-  httpPostNewUser,
-  httpPostLoginUser,
-  httpGetLogoutUser,
-};

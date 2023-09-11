@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
 
-import api from "./routes/api";
+import { api } from "./routes/api";
 
 import dotenv from "dotenv";
 dotenv.config();
