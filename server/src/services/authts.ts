@@ -8,7 +8,7 @@ export function verifyToken(
   req: verifiedToken,
   res: Response,
   next: NextFunction
-) {
+): void | Response {
   const token: string =
     req.body.token || req.query.token || req.headers["x-access-token"];
 

@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import { verifyToken } from "./authts";
 import path from "path";
 import dotenv from "dotenv";
-import { verifiedToken } from "../types/authType";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
@@ -41,7 +40,7 @@ describe("verifyToken()", () => {
     expect(next).toHaveBeenCalledWith();
   });
 
-  test.only("the token is invalid", () => {
+  test("the token is invalid", () => {
     const req: any = {
       headers: {
         "x-access-token": "invalid-token",

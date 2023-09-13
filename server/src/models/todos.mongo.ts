@@ -24,5 +24,4 @@ const todosSchema = new mongoose.Schema<IApplicationTodo>(
   { typeKey: "$type" }
 );
 
-//module.exports = mongoose.model("Todo", todosSchema);
 export default mongoose.model<IApplicationTodo>("Todo", todosSchema);

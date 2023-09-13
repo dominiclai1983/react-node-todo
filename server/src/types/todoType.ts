@@ -5,4 +5,5 @@ export interface IApplicationTodo extends mongoose.Document {
   completed: boolean;
   deleted: boolean;
   user_id: number;
+  _id?: number;
 }

@@ -1,17 +1,11 @@
-const {
-  connectTestDB,
-  dropDB,
-  dropCollections,
-} = require("../services/testdb");
+import { connectTestDB, dropDB, dropCollections } from "../services/testdb";
+import User from "./users.mongo";
 
-//import { connectTestDB, dropDB, dropCollections } from "../services/testdb";
-const User = require("./users.mongo");
+beforeAll(async () => await connectTestDB());
+afterAll(async () => await dropDB());
+afterEach(async () => await dropCollections());
 
-beforeAll(async () => connectTestDB());
-afterAll(async () => dropDB());
-afterEach(async () => dropCollections());
-
-describe("todos.model", () => {
+describe("users.model", () => {
   test("it should create a new user successfully", async () => {
     let newtestuser = {
       username: "someuser",
@@ -21,7 +15,7 @@ describe("todos.model", () => {
       token: "sometoken",
     };
 
-    const newUser = await User(newtestuser);
+    const newUser = new User(newtestuser);
     await newUser.save();
 
     expect(newUser._id).toBeDefined();
